@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #000000 0%, #1a0b2e 50%, #000000 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #ffffff;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Конверт */
+.envelope-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    background: #0d0519;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.8),
+        inset 0 0 30px rgba(108, 71, 172, 0.2),
+        0 0 30px rgba(108, 71, 172, 0.3);
+    overflow: hidden;
+}
+
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 20px,
+        #6c47ac 20px,
+        #6c47ac 40px
+    );
+    z-index: 3;
+}
+
+/* Клапан конверта */
+.envelope-flap {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 40px;
+    background: #170b2b;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 2;
+    border: 3px solid #6c47ac;
+    border-bottom: none;
+    box-shadow: 0 -5px 20px rgba(108, 71, 172, 0.4);
+}
+
+/* Текст "открыть" */
+.open-text {
+    text-align: center;
+    color: white;
+    font-family: 'Russo One', sans-serif;
+    position: relative;
+    z-index: 5;
+    padding: 50px 0;
+}
+
+.open-text-main {
+    font-size: 36px;
+    text-shadow: 
+        0 0 15px #6c47ac,
+        0 0 25px #6c47ac,
+        3px 3px 0 #000;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    line-height: 1.3;
+}
+
+.open-text-hint {
+    font-size: 22px;
+    color: #b5a1ff;
+    text-shadow: 0 0 8px #6c47ac;
+    margin-top: 40px;
+    position: relative;
+}
+
+.open-text-hint::after {
+    content: '▼';
+    display: block;
+    font-size: 28px;
+    margin-top: 15px;
+    animation: bounce 1.5s infinite;
+}
+
+/* Содержимое конверта */
+.invitation-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+/* Когда конверт открыт */
+.envelope-container.open .envelope-flap {
+    transform: translateX(-50%) rotateX(180deg) translateY(-30px);
+    opacity: 0.5;
+}
+
+.envelope-container.open .open-text {
+    display: none;
+}
+
+.envelope-container.open .invitation-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Заголовок */
+.invitation-content h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 60px;
+    text-align: center;
+    color: #ffffff;
+    margin: 0 0 30px 0;
+    text-transform: uppercase;
+    text-shadow: 
+        0 0 15px #6c47ac,
+        0 0 25px #6c47ac,
+        4px 4px 0 #000;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
+}
+
+.age-number {
+    font-size: 80px;
+    color: #6c47ac;
+    display: inline-block;
+    margin-left: 10px;
+    text-shadow: 
+        0 0 20px #6c47ac,
+        0 0 40px #6c47ac,
+        5px 5px 0 #000;
+    animation: numberGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    top: 5px;
+}
+
+/* Приветствие */
+.greeting {
+    font-size: 28px;
+    text-align: center;
+    margin: 30px 0 40px 0;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.big {
+    color: #b5a1ff;
+    text-shadow: 0 0 10px #6c47ac;
+}
+
+/* Основной текст */
+.main-text {
+    font-size: 22px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 30px 0;
+    color: #ffffff;
+}
+
+.main-text p {
+    margin-bottom: 20px;
+}
+
+/* Выделенный текст */
+.highlight {
+    color: #b5a1ff;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(108, 71, 172, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(108, 71, 172, 0.1);
+    display: inline-block;
+}
+
+/* Фото именинника - прямоугольное */
+.hero-photo {
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(108, 71, 172, 0.3);
+}
+
+.hero-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Виды активностей с фото в прямоугольниках */
+.activities {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.activity {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: rgba(13, 5, 25, 0.7);
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #6c47ac;
+}
+
+.activity-photo-container {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.activity-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s;
+}
+
+.activity:hover .activity-photo {
+    transform: scale(1.05);
+}
+
+.activity-text {
+    font-size: 22px;
+    line-height: 1.5;
+    color: #ffffff;
+    flex: 1;
+    padding: 20px;
+}
+
+/* Дополнительная информация */
+.details {
+    font-size: 20px;
+    text-align: center;
+    margin: 40px 0;
+    color: #f0f0f0;
+    line-height: 1.6;
+}
+
+/* Что взять с собой */
+.equipment {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin: 40px 0;
+}
+
+.equipment-item {
+    background: rgba(23, 11, 43, 0.8);
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 2px solid #6c47ac;
+}
+
+.equipment-icon {
+    font-size: 36px;
+    min-width: 40px;
+}
+
+.equipment-text {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+/* Блоки с информацией */
+.info-section {
+    background: rgba(23, 11, 43, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 40px 0;
+    border: 2px solid #6c47ac;
+}
+
+.info-section h2 {
+    font-family: 'Russo One', sans-serif;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-size: 28px;
+    text-align: center;
+    text-shadow: 0 0 10px #6c47ac;
+    border-bottom: 3px solid #6c47ac;
+    padding-bottom: 15px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.info-item {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.3),
+        inset 0 0 10px rgba(108, 71, 172, 0.1);
+    border-left: 4px solid #6c47ac;
+    font-size: 18px;
+}
+
+/* Особый блок для места (во всю ширину) */
+.place-fullwidth {
+    grid-column: 1 / -1; /* Занимает все колонки */
+    background: rgba(108, 71, 172, 0.2);
+    border: 3px solid #6c47ac;
+    text-align: center;
+    padding: 25px;
+    margin-top: 10px;
+}
+
+.place-fullwidth strong {
+    font-size: 24px;
+    color: #ffffff;
+    text-shadow: 0 0 10px #6c47ac;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.place-fullwidth .digits-only {
+    font-size: 32px;
+    color: #b5a1ff;
+    text-shadow: 0 0 15px #6c47ac;
+}
+
+.info-item strong {
+    color: #b5a1ff;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-family: 'Russo One', sans-serif;
+}
+
+.digits-only {
+    font-family: 'Russo One', sans-serif;
+    color: #6c47ac;
+    font-size: 24px;
+    text-shadow: 0 0 8px rgba(108, 71, 172, 0.7);
+}
+
+/* Футбольное поле внизу */
+.field {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, 
+        rgba(13, 5, 25, 0.9) 0%,
+        rgba(13, 5, 25, 0.6) 30%,
+        transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Анимации */
+@keyframes numberGlow {
+    0% {
+        text-shadow: 
+            0 0 20px #6c47ac,
+            0 0 40px #6c47ac,
+            5px 5px 0 #000;
+    }
+    100% {
+        text-shadow: 
+            0 0 30px #6c47ac,
+            0 0 60px #6c47ac,
+            5px 5px 0 #000,
+            0 0 80px #6c47ac;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { 
+        transform: translateY(0); 
+    }
+    50% { 
+        transform: translateY(10px); 
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .envelope {
+        padding: 20px 15px;
+    }
+    
+    .invitation-content h1 {
+        font-size: 44px;
+    }
+    
+    .age-number {
+        font-size: 60px;
+    }
+    
+    .open-text-main {
+        font-size: 28px;
+    }
+    
+    .open-text-hint {
+        font-size: 20px;
+    }
+    
+    .hero-photo {
+        max-width: 300px;
+    }
+    
+    .activity {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .activity-photo-container {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .activity-text {
+        padding: 20px;
+        font-size: 20px;
+    }
+    
+    .equipment {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .place-fullwidth {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .invitation-content h1 {
+        font-size: 36px;
+    }
+    
+    .age-number {
+        font-size: 48px;
+        margin-left: 5px;
+    }
+    
+    .hero-photo {
+        max-width: 250px;
+    }
+    
+    .activity-photo-container {
+        height: 180px;
+    }
+    
+    .info-section {
+        padding: 20px;
+    }
+    
+    .place-fullwidth {
+        padding: 20px;
+    }
+    
+    .place-fullwidth .digits-only {
+        font-size: 28px;
+    }
+}
